@@ -23,21 +23,25 @@
 /*
  * 調校指南 (Tuning Guide):
  * 1. 調整圓的大小：
- *    - 想要大圓：減少 HIGH_SPEED 與 LOW_SPEED 的差距 (例如 200 vs 150)。
- *    - 想要小圓：增加差距 (例如 200 vs 50)。
+ *    - 想要大圓：減少 HIGH_SPEED 與 LOW_SPEED 的差距 (例如 255 vs 250)。
+ *    - 想要小圓：增加差距。
  * 
  * 2. 調整圓的完整度：
  *    - 修改 CIRCLE_TIME：如果車子沒畫完一個圓，增加時間；畫過頭了，減少時間。
  * 
  * 3. 硬體誤差 (Hardware Bias) - 重要！
  *    - 幾乎所有的廉價直流馬達，左右兩顆特性都不會完全一樣。
- *    - 即使程式寫 `forward(200)`，車子可能還是會稍微偏左或偏右。
+ *    - 即使程式寫 `forward(255)`，車子可能還是會稍微偏左或偏右。
  *    - 在畫 8 字型時，如果你發現左轉圈比較快，右轉圈比較慢，這是正常的。
  *    - 修正方法：你需要針對比較弱的那一輪，稍微把速度數值調高一點點來補償 (軟體校正)。
  */
-const int HIGH_SPEED = 200; // 外側輪速度
-const int LOW_SPEED = 80;   // 內側輪速度 (不能太低，否則可能推不動車身重量)
+const int HIGH_SPEED = 255; // 外側輪速度
+const int LOW_SPEED = 100;   // 內側輪速度 (建議與 HIGH 有 100~150 的差距，轉彎才明顯)
 const int CIRCLE_TIME = 3500; // 畫一個圓大約需要的時間
+
+// --- 直線校正參數 (影響 differentialDrive 的基礎出力) ---
+const float LEFT_FACTOR = 1.0; 
+const float RIGHT_FACTOR = 1.0;
 
 void setup() {
   pinMode(MOTOR_L_B_IB, OUTPUT);
@@ -68,13 +72,18 @@ void loop() {
 // --- 差速驅動函式 ---
 // 可以分別控制左右輪的速度
 void differentialDrive(int leftSpeed, int rightSpeed) {
+  // 應用校正參數
+  // 注意：這裡只會將數值變小，不會變大超過 255
+  int vL = leftSpeed * LEFT_FACTOR;
+  int vR = rightSpeed * RIGHT_FACTOR;
+
   // 左輪
   digitalWrite(MOTOR_L_B_IB, HIGH);
-  analogWrite(MOTOR_L_B_IA, 255 - leftSpeed);
+  analogWrite(MOTOR_L_B_IA, 255 - vL);
   
   // 右輪
   digitalWrite(MOTOR_R_A_IB, HIGH);
-  analogWrite(MOTOR_R_A_IA, 255 - rightSpeed);
+  analogWrite(MOTOR_R_A_IA, 255 - vR);
 }
 
 void brake() {

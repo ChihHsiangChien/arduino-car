@@ -21,9 +21,13 @@
 #define MOTOR_R_A_IB 4
 #define MOTOR_R_A_IA 5
 
-const int SPEED = 200;
+const int SPEED = 255;
 const int MOVE_TIME = 1000; // 邊長時間
 const int TURN_TIME = 720;  // 144 度轉彎時間 (預設值)
+
+// --- 直線校正參數 (請依 straight_line_calibration.ino 結果修改) ---
+const float LEFT_FACTOR = 1.0; 
+const float RIGHT_FACTOR = 1.0;
 
 void setup() {
   pinMode(MOTOR_L_B_IB, OUTPUT);
@@ -58,10 +62,13 @@ void loop() {
 }
 
 void forward(int v) {
+  int vL = v * LEFT_FACTOR;
+  int vR = v * RIGHT_FACTOR;
+
   digitalWrite(MOTOR_L_B_IB, HIGH);
-  analogWrite(MOTOR_L_B_IA, 255 - v);
+  analogWrite(MOTOR_L_B_IA, 255 - vL);
   digitalWrite(MOTOR_R_A_IB, HIGH);
-  analogWrite(MOTOR_R_A_IA, 255 - v);
+  analogWrite(MOTOR_R_A_IA, 255 - vR);
 }
 
 void spinRight(int v) {

@@ -35,10 +35,11 @@
     *   **檔案**：`car.ino`
     *   **內容**：最基本的馬達控制與紅外線接收測試，確保所有線路連接正確。
 2.  **馬達控制 (Motor Control)**
+    *   **檔案**：`straight_line_calibration.ino` - **[重要工具]** 直線校正。找出兩個修正左右輪誤差的參數。
+    *   **檔案**：`accelerating_demo.ino` - 線性加速（PWM、啟動死區、斜坡控制）。
     *   **檔案**：`square_path_demo.ino` - 畫正方形（基礎時序控制）。
     *   **檔案**：`star_path_demo.ino` - 畫五角星（幾何角度計算）。
     *   **檔案**：`figure_8_demo.ino` - 8字型繞行（差速轉向 Differential Steering）。
-    *   **檔案**：`accelerating_demo.ino` - 線性加速（PWM、啟動死區、斜坡控制）。
     *   **檔案**：`shuttle_run_challenge.ino` - **[階段驗收]** 折返跑挑戰（綜合應用）。
 
 ### 第二階段：互動與資料結構 (Interaction & Data)

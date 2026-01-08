@@ -26,6 +26,12 @@ const int TOP_SPEED = 255;
 const int TURN_TIME_180 = 900; // 迴轉 180 度所需時間
 const int CRUISE_TIME = 1000;  // 全速衝刺的時間
 
+// --- 平滑加減速參數 (Soft Start/Stop) ---
+const int RAMP_DELAY = 20;     // 調整這個數值改變加減速的「快慢」 (越小越快)
+const int RAMP_STEP_UP = 5;    // 加速時每次增加的速度
+const int RAMP_STEP_DOWN = 10; // 煞車時每次減少的速度
+const int MIN_START_SPEED = 60; // 啟動死區：直接從這個速度開始，跳過馬達不會動的低電壓區
+
 // --- 直線修正參數 (Straight Line Calibration) ---
 // 真實的馬達通常左右轉速不同，導致車子無法走直線。
 // 如果車子偏左 (代表右輪比較快)，請把 RIGHT_FACTOR 調小 (例如 0.9)。
@@ -81,17 +87,17 @@ void loop() {
 
 // 平滑起步 (Ramp Up)
 void softStart() {
-  for (int s = 60; s <= TOP_SPEED; s += 5) {
+  for (int s = MIN_START_SPEED; s <= TOP_SPEED; s += RAMP_STEP_UP) {
     forward(s);
-    delay(20); // 調整這裡可以改變加速度
+    delay(RAMP_DELAY); 
   }
 }
 
 // 平滑煞車 (Ramp Down)
 void softStop() {
-  for (int s = TOP_SPEED; s >= 0; s -= 10) { // 煞車通常比加速快一點
+  for (int s = TOP_SPEED; s >= 0; s -= RAMP_STEP_DOWN) { 
     forward(s);
-    delay(20);
+    delay(RAMP_DELAY);
   }
   brake();
 }
