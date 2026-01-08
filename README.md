@@ -1,80 +1,106 @@
-# Arduino 小車教學 (Arduino Smart Car Tutorial)
+# Arduino 輪型機器人實作 (Arduino Wheeled Robot Workshop)
 
-本專案包含一系列循序漸進的 Arduino 程式碼，旨在引導學習者從基礎的硬體控制，進階到結合感測器、音效與自動避障邏輯的整合應用。
+## 關於本課程 (Course Overview)
+本課程旨在帶領學員認識「輪型機器人」的基礎原理與控制技術。透過 Arduino 開發板，我們將從最底層的馬達驅動開始，一步步賦予機器人感知環境（感測器）與決策思考（演算法）的能力。
+
+## 什麼是機器人？ (What is a Robot?)
+一個完整的機器人通常具備三個核心循環 (Sense-Think-Act)，本課程將逐一實作：
+1.  **感測 (Sense)**：感知外界環境的能力。
+    *   *本課程使用*：紅外線接收器 (接收指令)、紅外線感測器 (近距離偵測)、超音波感測器 (測量距離)。
+2.  **運算 (Think)**：接收感測數據，依據演算法做出決策。
+    *   *本課程使用*：Arduino 微控制器。學習核心邏輯如：狀態機 (State Machine)、邏輯判斷 (If-Else)、回授控制 (Feedback Control)。
+3.  **動作 (Act)**：執行決策，對物理世界產生作用。
+    *   *本課程使用*：L298N 馬達驅動模組 (控制輪子轉動)、蜂鳴器 (發出聲音訊號)。
+
+## 學習目標 (Learning Outcomes)
+完成本課程後，您將掌握：
+*   **嵌入式系統基礎**：理解 GPIO、PWM、中斷 (Interrupt) 與硬體通訊原理。
+*   **控制理論入門**：
+    *   **開迴路控制 (Open-Loop)**：學習如何克服物理慣性與硬體誤差 (Hardware Bias)。
+    *   **閉迴路控制 (Closed-Loop)**：學習利用感測器回授來修正行為 (如 P-Control)。
+*   **軟體工程思維**：
+    *   **模組化設計**：學習撰寫 `.h` 與 `.cpp` 函式庫，管理複雜程式碼。
+    *   **非阻塞多工 (Non-blocking Multitasking)**：脫離 `delay()`，學習寫出能同時處理多項任務的專業程式。
+
+---
 
 ## 程式列表與教學流程 (Teaching Flow)
 
-請依照以下順序學習與測試，掌握各個核心概念：
+本課程分為五大階段，建議依序學習。
 
-### 1. 基礎測試
-*   **檔案**：`car.ino`
-*   **內容**：最基本的馬達控制與紅外線接收測試，確保所有線路連接正確。
+### 第一階段：基礎控制 (Foundation: Hardware & Open-Loop)
+*目標：熟悉硬體特性，掌握開迴路控制技巧。*
 
-### 2. 馬達控制初階 (Basic Motor Control)
-*   **檔案**：`square_path_demo.ino`
-*   **內容**：嘗試讓車子走出完美的正方形。你需要手動調整轉彎的 delay 時間，體會沒有感測器時控制的困難。
-*   **檔案**：`accelerating_demo.ino`
-*   **內容**：車子平滑地加速起步與減速煞車，學習克服馬達的啟動死區 (Dead Zone)。
+1.  **基礎測試**
+    *   **檔案**：`car.ino`
+    *   **內容**：最基本的馬達控制與紅外線接收測試，確保所有線路連接正確。
+2.  **馬達控制 (Motor Control)**
+    *   **檔案**：`square_path_demo.ino` - 畫正方形（基礎時序控制）。
+    *   **檔案**：`star_path_demo.ino` - 畫五角星（幾何角度計算）。
+    *   **檔案**：`figure_8_demo.ino` - 8字型繞行（差速轉向 Differential Steering）。
+    *   **檔案**：`accelerating_demo.ino` - 線性加速（PWM、啟動死區、斜坡控制）。
+    *   **檔案**：`shuttle_run_challenge.ino` - **[階段驗收]** 折返跑挑戰（綜合應用）。
 
-### 3. 手動互動與聲音 (Interaction & Sound)
-*   **檔案**：`manual_sound_car.ino`
-*   **內容**：
-    *   **全手動控制**：使用紅外線遙控器操作車子。
-    *   **按鍵音效**：每個動作（前進、轉彎、煞車）都有對應的提示音。
-    *   **喇叭功能**：按 EQ 鍵可發出喇叭聲。
+### 第二階段：互動與資料結構 (Interaction & Data)
+*目標：增加人機互動，並學習如何在 Arduino 中儲存與回放資料。*
 
-### 4. 資料視覺化 (Data Visualization)
-*   **檔案**：`serial_plotter_dashboard.ino`
-*   **內容**：將感測器數據轉化為即時波形圖。這是工程師除錯與調整參數的重要技巧。
+3.  **音頻原理 (Audio Basics)**
+    *   **檔案**：`manual_tone_song.ino`
+    *   **內容**：手寫頻率產生器，理解聲音震動原理，演奏簡單歌曲。
+4.  **手動互動 (Manual Interaction)**
+    *   **檔案**：`manual_sound_car.ino`
+    *   **內容**：全功能遙控車，結合按鍵判斷與音效回饋。
+5.  **遙控電子琴 (Remote Piano)**
+    *   **檔案**：`remote_piano.ino`
+    *   **內容**：將遙控器變身為電子琴。按數字鍵 0-8 彈奏不同音階，練習「小蜜蜂」等兒歌。
+6.  **記憶電子琴 (Memory Piano)**
+    *   **檔案**：`memory_piano.ino`
+    *   **內容**：**[過渡單元]** 在學習記錄複雜的車子動作之前，先練習記錄簡單的「一維陣列」音符。彈一段旋律，按下 OK 鍵，Arduino 就會自動重播。
+7.  **機器人記憶 (Robot Memory)**
+    *   **檔案**：`memory_path_recorder.ino`
+    *   **內容**：**[核心教學]** 實作「教導模式」。學習使用 `struct` 與 `Array` 記錄動作序列並重播。
 
-### 5. 基礎避障 (Simple Avoidance)
-*   **檔案**：`simple_avoidance.ino`
-*   **目標**：學習自動控制最核心的邏輯：「感測 -> 判斷 -> 動作」。
-*   **內容**：最單純的自駕車程式。利用超音波偵測距離，遇障礙則後退轉彎。使用 `delay()` (阻塞) 寫法，邏輯直觀好懂。
+### 第三階段：感測與邏輯 (Sensing & Logic)
+*目標：讓機器人學會「看」環境，並做出簡單決策。*
 
-### 6. 跟隨邏輯 (Follow Me Logic)
-*   **檔案**：`follow_me_car.ino`
-*   **目標**：學習「回授控制」與 P-Control 概念。
-*   **內容**：與避障相反的邏輯。車子會嘗試與前方物體保持固定距離（太近後退，太遠前進）。
+8.  **資料視覺化 (Visualization)**
+    *   **檔案**：`serial_plotter_dashboard.ino`
+    *   **內容**：使用 Serial Plotter 觀察感測器數值，這是除錯的神器。
+9.  **基礎避障 (Simple Avoidance)**
+    *   **檔案**：`simple_avoidance.ino`
+    *   **內容**：最單純的「感測 -> 判斷 -> 動作」邏輯 (Blocking)。
+10. **跟隨邏輯 (Follow Me)**
+    *   **檔案**：`follow_me_car.ino`
+    *   **內容**：學習 P-Control 概念，保持固定距離。
 
-### 7. 進階觀念：函式庫封裝 (C++ Library Creation)
-*   **檔案**：`SimpleIR.h`, `SimpleIR.cpp`, `library_tutorial.ino`
-*   **目標**：將IR的程式碼打包成 `.h` 與 `.cpp` 檔。
-*   **內容**：將 `car.ino` 中複雜的手寫紅外線解碼邏輯抽離出來，讓主程式只剩下乾淨的 `ir.check()` 與 `ir.getResult()`。
+### 第四階段：軟體架構 (Software Architecture)
+*目標：寫出專業、高效、可擴充的程式碼。*
 
-### 8. 進階觀念：非阻塞程式設計 (Non-blocking Code)
-*   **檔案**：`non_blocking_tone_tutorial.ino`
-*   **目標**：**[核心教學]** 理解為什麼不能用 `delay()`。
-*   **內容**：一個純教學範例。展示如何使用 `millis()` 和狀態機 (State Machine) 來同時播放背景音樂並閃爍 LED，證明 CPU 沒有被卡住。
+11. **函式庫封裝 (Refactoring)**
+    *   **檔案**：`SimpleIR.h`, `SimpleIR.cpp`, `library_tutorial.ino`
+    *   **內容**：學習如何將雜亂的程式碼打包成 Library (`.h`/`.cpp`)。
+12. **非阻塞多工 (Multitasking)**
+    *   **檔案**：`non_blocking_tone_tutorial.ino`
+    *   **內容**：**[核心教學]** 拋棄 `delay()`。使用 `millis()` 與狀態機 (State Machine) 讓車子同時做多件事。
+13. **非阻塞感測 (Non-blocking Sensing)**
+    *   **檔案**：`radar_car.ino`
+    *   **內容**：應用非阻塞技術，實作倒車雷達音效（聽覺回饋）。
+14. **狀態機應用 (State Machines)**
+    *   **檔案**：`ir_auto_sound_car.ino`
+    *   **內容**：多感測器融合 (Sensor Fusion) 與複雜狀態管理。
 
-### 9. 感測器與回饋 (Sensors & Feedback)
-*   **檔案**：`radar_car.ino`
-*   **目標**：應用非阻塞技術。
-*   **內容**：
-    *   **自動駕駛**：不需要遙控器，車子自動前進。
-    *   **倒車雷達音效**：利用剛剛學到的 `millis()` 技術，實作距離越近、嗶聲越急促的效果。
-    *   **隨機避障**：遇到障礙物時會隨機選擇左轉或右轉。
-### 10. 綜合應用 (Integration)
-*   **檔案**：`ir_auto_sound_car.ino`
-*   **內容**：
-    *   結合 **左右紅外線感測器** 進行避障。
-    *   **同步音效**：利用上述的「非阻塞」技術，讓車子在自動避障的同時，發出代表不同狀態的音效（心跳聲、轉彎聲、倒車警報）。
+### 第五階段：專案整合 (Final Integration)
+*目標：打造最終的智慧車系統。*
 
-### 11. 聲音實驗 (Audio Experiment)
-*   **檔案**：`dual_buzzer_harmony.ino`
-*   **內容**：使用兩個蜂鳴器（硬體 Tone + 軟體模擬 Tone）同時發聲，產生 C 大調和弦效果。
+15. **模式切換架構 (Mode Switching)**
+    *   **檔案**：`mode_switch_concept.ino`
+    *   **內容**：學習利用「狀態變數」在不同功能模式間切換。
+16. **最終專案 (Final Project)**
+    *   **檔案**：`smart_car_dual_mode.ino`
+    *   **內容**：整合遙控、避障、音效與模式切換的完整系統。
 
-
-### 12. 模式切換概念 (Mode Switch Concept)
-*   **檔案**：`mode_switch_concept.ino`
-*   **內容**：簡化複雜的避障與音效，專注於「如何寫出可以切換模式的程式架構」。學會如何用變數 (State Variable) 來控制程式的流向。
-
-### 13. 完整版與模式切換 (Final Project with Mode Switching)
-*   **檔案**：`smart_car_dual_mode.ino`
-*   **內容**：
-    *   整合 **手動遙控** 與 **自動避障** 兩大功能。
-    *   支援遙控器 **一鍵切換模式** (EQ鍵)。
-    *   包含完整的避障邏輯（前方超音波 + 左右紅外線）。
+### 附錄：延伸實驗
+*   **檔案**：`dual_buzzer_harmony.ino` - 雙蜂鳴器和弦實驗（硬體極限挑戰）。
 
 ---
 
@@ -94,7 +120,6 @@
 
 ## 如何開始
 
-1.  確認硬體接線無誤。
-2.  (選用) 若執行舊版程式需安裝 `IRremote` 函式庫，但基礎測試 `car.ino` 已改寫為免函式庫版本。
-3.  從 **1. 基礎測試** 開始，將對應的 `.ino` 檔上傳至 Arduino。
-4.  開啟 Serial Monitor (115200) 觀察輸出。
+1.  確認硬體接線無誤。  
+2.  從 **1. 基礎測試** 開始，將對應的 `.ino` 檔上傳至 Arduino。
+3.  開啟 Serial Monitor (115200) 觀察輸出。
