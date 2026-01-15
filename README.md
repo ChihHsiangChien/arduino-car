@@ -32,72 +32,75 @@
 *目標：熟悉硬體特性，掌握開迴路控制技巧。*
 
 1.  **基礎測試**
-    *   **檔案**：`car.ino`
-    *   **內容**：最基本的馬達控制與紅外線接收測試，確保所有線路連接正確。
+    *   **檔案**：[`car/car.ino`](car/car.ino)
+    *   **內容**：最基本的馬達控制測試，確保線路連接正確。
 2.  **馬達控制 (Motor Control)**
-    *   **檔案**：`straight_line_calibration.ino` - **[重要工具]** 直線校正。找出兩個修正左右輪誤差的參數。
-    *   **檔案**：`accelerating_demo.ino` - 線性加速（PWM、啟動死區、斜坡控制）。
-    *   **檔案**：`square_path_demo.ino` - 畫正方形（基礎時序控制）。
-    *   **檔案**：`star_path_demo.ino` - 畫五角星（幾何角度計算）。
-    *   **檔案**：`figure_8_demo.ino` - 8字型繞行（差速轉向 Differential Steering）。
-    *   **檔案**：`shuttle_run_challenge.ino` - **[階段驗收]** 折返跑挑戰（綜合應用）。
+    *   **檔案**：[`straight_line_calibration/straight_line_calibration.ino`](straight_line_calibration/straight_line_calibration.ino) - **[重要工具]** 直線校正。找出兩個修正左右輪誤差的參數。
+    *   **檔案**：[`accelerating_demo/accelerating_demo.ino`](accelerating_demo/accelerating_demo.ino) - 線性加速（PWM、啟動死區、斜坡控制）。
+    *   **檔案**：[`square_path_demo/square_path_demo.ino`](square_path_demo/square_path_demo.ino) - 畫正方形（基礎時序控制）。
+    *   **檔案**：[`star_path_demo/star_path_demo.ino`](star_path_demo/star_path_demo.ino) - 畫五角星（幾何角度計算）。
+    *   **檔案**：[`figure_8_demo/figure_8_demo.ino`](figure_8_demo/figure_8_demo.ino) - 8字型繞行（差速轉向 Differential Steering）。
+    *   **檔案**：[`shuttle_run_challenge/shuttle_run_challenge.ino`](shuttle_run_challenge/shuttle_run_challenge.ino) - **[階段驗收]** 折返跑挑戰（綜合應用）。
 
 ### 第二階段：互動與資料結構 (Interaction & Data)
 *目標：增加人機互動，並學習如何在 Arduino 中儲存與回放資料。*
 
 3.  **音頻原理 (Audio Basics)**
-    *   **檔案**：`manual_tone_song.ino`
+    *   **檔案**：[`manual_tone_song/manual_tone_song.ino`](manual_tone_song/manual_tone_song.ino)
     *   **內容**：手寫頻率產生器，理解聲音震動原理，演奏簡單歌曲。
 4.  **手動互動 (Manual Interaction)**
-    *   **檔案**：`manual_sound_car.ino`
+    *   **檔案**：[`manual_sound_car/manual_sound_car.ino`](manual_sound_car/manual_sound_car.ino)
     *   **內容**：全功能遙控車，結合按鍵判斷與音效回饋。
 5.  **遙控電子琴 (Remote Piano)**
-    *   **檔案**：`remote_piano.ino`
+    *   **檔案**：[`remote_piano/remote_piano.ino`](remote_piano/remote_piano.ino)
     *   **內容**：將遙控器變身為電子琴。按數字鍵 0-8 彈奏不同音階，練習「小蜜蜂」等兒歌。
 6.  **記憶電子琴 (Memory Piano)**
-    *   **檔案**：`memory_piano.ino`
+    *   **檔案**：[`memory_piano/memory_piano.ino`](memory_piano/memory_piano.ino)
     *   **內容**：**[過渡單元]** 在學習記錄複雜的車子動作之前，先練習記錄簡單的「一維陣列」音符。彈一段旋律，按下 OK 鍵，Arduino 就會自動重播。
 7.  **機器人記憶 (Robot Memory)**
-    *   **檔案**：`memory_path_recorder.ino`
+    *   **檔案**：[`memory_path_recorder/memory_path_recorder.ino`](memory_path_recorder/memory_path_recorder.ino)
     *   **內容**：**[核心教學]** 實作「教導模式」。學習使用 `struct` 與 `Array` 記錄動作序列並重播。
 
 ### 第三階段：感測與邏輯 (Sensing & Logic)
 *目標：讓機器人學會「看」環境，並做出簡單決策。*
 
 8.  **資料視覺化 (Visualization)**
-    *   **檔案**：`serial_plotter_dashboard.ino`
+    *   **檔案**：[`serial_plotter_dashboard/serial_plotter_dashboard.ino`](serial_plotter_dashboard/serial_plotter_dashboard.ino)
     *   **內容**：使用 Serial Plotter 觀察感測器數值，這是除錯的神器。
 9.  **基礎避障 (Simple Avoidance)**
-    *   **檔案**：`simple_avoidance.ino`
+    *   **檔案**：[`simple_avoidance/simple_avoidance.ino`](simple_avoidance/simple_avoidance.ino)
     *   **內容**：最單純的「感測 -> 判斷 -> 動作」邏輯 (Blocking)。
 10. **跟隨邏輯 (Follow Me)**
-    *   **檔案**：`follow_me_car.ino`
+    *   **檔案**：[`follow_me_car/follow_me_car.ino`](follow_me_car/follow_me_car.ino)
     *   **內容**：學習 P-Control 概念，保持固定距離。
+11. **循線自駕 (Line Following)**
+    *   **檔案**：[`line_following_car/line_following_car.ino`](line_following_car/line_following_car.ino)
+    *   **內容**：利用紅外線循線模組，讓車子沿著黑線行駛。
 
 ### 第四階段：軟體架構 (Software Architecture)
 *目標：寫出專業、高效、可擴充的程式碼。*
 
-11. **函式庫封裝 (Refactoring)**
-    *   **檔案**：`SimpleIR.h`, `SimpleIR.cpp`, `library_tutorial.ino`
+12. **函式庫封裝 (Refactoring)**
+    *   **檔案**：`SimpleIR.h`, `SimpleIR.cpp`, [`library_tutorial/library_tutorial.ino`](library_tutorial/library_tutorial.ino)
     *   **內容**：學習如何將雜亂的程式碼打包成 Library (`.h`/`.cpp`)。
-12. **非阻塞多工 (Multitasking)**
-    *   **檔案**：`non_blocking_tone_tutorial.ino`
+13. **非阻塞多工 (Multitasking)**
+    *   **檔案**：[`non_blocking_tone_tutorial/non_blocking_tone_tutorial.ino`](non_blocking_tone_tutorial/non_blocking_tone_tutorial.ino)
     *   **內容**：**[核心教學]** 拋棄 `delay()`。使用 `millis()` 與狀態機 (State Machine) 讓車子同時做多件事。
-13. **非阻塞感測 (Non-blocking Sensing)**
-    *   **檔案**：`radar_car.ino`
-    *   **內容**：應用非阻塞技術，實作倒車雷達音效（聽覺回饋）。
-14. **狀態機應用 (State Machines)**
-    *   **檔案**：`ir_auto_sound_car.ino`
+14. **非阻塞感測 (Non-blocking Sensing)**
+    *   **檔案**：[`radar_car/radar_car.ino`](radar_car/radar_car.ino)
+    *   **內容**：應用非阻塞技術，實作倒車雷達音效。
+15. **狀態機應用 (State Machines)**
+    *   **檔案**：[`ir_auto_sound_car/ir_auto_sound_car.ino`](ir_auto_sound_car/ir_auto_sound_car.ino)
     *   **內容**：多感測器融合 (Sensor Fusion) 與複雜狀態管理。
 
 ### 第五階段：專案整合 (Final Integration)
 *目標：打造最終的智慧車系統。*
 
-15. **模式切換架構 (Mode Switching)**
-    *   **檔案**：`mode_switch_concept.ino`
+16. **模式切換架構 (Mode Switching)**
+    *   **檔案**：[`mode_switch_concept/mode_switch_concept.ino`](mode_switch_concept/mode_switch_concept.ino)
     *   **內容**：學習利用「狀態變數」在不同功能模式間切換。
-16. **最終專案 (Final Project)**
-    *   **檔案**：`smart_car_dual_mode.ino`
+17. **最終專案 (Final Project)**
+    *   **檔案**：[`smart_car_dual_mode/smart_car_dual_mode.ino`](smart_car_dual_mode/smart_car_dual_mode.ino)
     *   **內容**：整合遙控、避障、音效與模式切換的完整系統。
 
 ### 附錄：延伸實驗
